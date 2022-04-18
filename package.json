@@ -1,0 +1,32 @@
+{
+  "name": "@sayari/utility-kit",
+  "version": "0.0.0",
+  "description": "a collection of js/ts utilities for Sayari Graph",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "validate": "eslint \"src/**/**.{ts,tsx}\"",
+    "format": "prettier \"src/**/**.{ts,tsx}\" --write",
+    "clean": "rm -rf ./dist && rm -rf .parcel-cache",
+    "build": "npm run clean && parcel build",
+    "deploy": "npm run build && npm publish && git push --follow-tags",
+    "pub:pre": "npm run validate && npm version prerelease && npm run deploy",
+    "pub:patch": "npm run validate && npm version patch && npm run deploy",
+    "pub:minor": "npm run validate && npm version minor && npm run deploy",
+    "pub:major": "npm run validate && npm version minor && npm run deploy"
+  },
+  "author": "Mikey Gower",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "parcel": "^2.4.1",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  }
+}
