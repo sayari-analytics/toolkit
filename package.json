@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "jest",
     "validate": "eslint \"src/**/**.{ts,tsx}\"",
     "format": "prettier \"src/**/**.{ts,tsx}\" --write",
     "clean": "rm -rf ./dist && rm -rf .parcel-cache",

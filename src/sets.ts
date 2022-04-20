@@ -1,5 +1,3 @@
-export type SetItem<S> = S extends Set<infer I> ? I : never
-
 export const copySet = <I>(set: Set<I>): Set<I> => {
   const newSet = new Set<I>()
   set.forEach((item) => {
