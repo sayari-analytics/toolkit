@@ -1,6 +1,6 @@
 import { spacer } from './common'
 
-const capitalize = (str: string) => str.replace(/^./, (first) => first.toUpperCase())
+export const capitalize = (str: string) => str.replace(/^./, (first) => first.toUpperCase())
 
 export const toSnakeCase = (string: string) => string.toLowerCase().replace(/[\s|\/]/g, '_')
 
@@ -70,10 +70,10 @@ export const formatNumber = (
     if (num < 1) str = '< 1'
     else str = num.toFixed(0)
   } else if (precision === 'TENTHS') {
-    if (num * 10 < 1) str = '< .1'
+    if (num * 10 < 1) str = '< 0.1'
     else str = num.toFixed(1)
   } else if (precision === 'HUNDREDTHS') {
-    if (num * 100 < 1) str = '< .01'
+    if (num * 100 < 1) str = '< 0.01'
     else str = num.toFixed(2)
   }
 
