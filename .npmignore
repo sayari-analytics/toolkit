@@ -1,0 +1,9 @@
+src
+tests
+.vscode
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+jest.config.cjs
+tsconfig.json

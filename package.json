@@ -20,7 +20,7 @@
     "pub:major": "npm run validate && npm version minor && npm run deploy"
   },
   "author": "Mikey Gower",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
