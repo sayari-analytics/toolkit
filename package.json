@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "vitest run",
+    "test:watch": "vitest --reporter verbose",
     "lint": "eslint \"src/**/**.{ts,tsx}\"",
     "validate": "npm run lint && npm run test",
     "format": "prettier \"src/**/**.{ts,tsx}\" --write",
@@ -29,18 +30,16 @@
     "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
     "@types/ramda": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.5.1",
     "parcel": "^2.4.1",
     "prettier": "^2.6.2",
     "ramda": "^0.29.0",
-    "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vitest": "^0.34.3"
   }
 }

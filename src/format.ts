@@ -1,44 +1,50 @@
-import { spacer } from './common'
-import { dropLast } from 'ramda'
+import { any, dropLast, endsWith, join, nth } from 'ramda'
 
 export type StringCase = 'camel' | 'pascal' | 'snake' | 'kebab' | 'sentence'
 export type NumberPrecision = 'ORDER_OF_MAGNITUDE' | 'INTEGER' | 'TENTHS' | 'HUNDREDTHS'
+
+export const NUMBER_PRECISION: Record<NumberPrecision, NumberPrecision> = {
+  ORDER_OF_MAGNITUDE: 'ORDER_OF_MAGNITUDE',
+  INTEGER: 'INTEGER',
+  TENTHS: 'TENTHS',
+  HUNDREDTHS: 'HUNDREDTHS',
+}
+
+export const spacer = join(' ')
 
 export const capitalize = (str: string) => str.replace(/^./, (first) => first.toUpperCase())
 
 export const toSnakeCase = (string: string) => string.toLowerCase().replace(/[\s|\/]/g, '_')
 
-export const prettifySnakeCase = (string: string) => spacer(...string.split('_').map(capitalize))
+export const prettifySnakeCase = (string: string) => spacer(string.split('_').map(capitalize))
 
-export const prettifyKebobCase = (string: string) => spacer(...string.split('-').map(capitalize))
+export const prettifyKebobCase = (string: string) => spacer(string.split('-').map(capitalize))
 
 export const toTitleCase = (string: string, type: StringCase): string => {
   switch (type) {
     case 'snake':
-      return spacer(...string.split('_').map(capitalize))
+      return spacer(string.split('_').map(capitalize))
     case 'kebab':
-      return spacer(...string.split('-').map(capitalize))
+      return spacer(string.split('-').map(capitalize))
     case 'pascal':
       return string.replace(/([A-Z])/g, ' $1').trim()
     case 'camel':
       return capitalize(string.replace(/([A-Z])/g, ' $1'))
     case 'sentence':
-      return spacer(...string.toLowerCase().split(' ').map(capitalize))
+      return spacer(string.toLowerCase().split(' ').map(capitalize))
   }
 }
 
 const vowels = new Set(['a', 'e', 'i', 'o', 'u'])
 export const pluralize = (text: string, count = Infinity) => {
-  if (
-    count !== 1 &&
-    text[text.length - 1].toLowerCase() === 'y' &&
-    !vowels.has(text[text.length - 2].toLowerCase())
-  ) {
-    return dropLast(1, text) + 'ies'
-  } else if (count === 1) {
+  if (count === 1) {
     return text
+  } else if (endsWith('y', text) && !vowels.has(nth(-2, text))) {
+    return dropLast(1, text).concat('ies')
+  } else if (any((suffix) => endsWith(suffix, text), ['s', 'ss', 'sh', 'ch', 'x', 'z'])) {
+    return text.concat('es')
   } else {
-    return text + 's'
+    return text.concat('s')
   }
 }
 
@@ -166,8 +172,10 @@ export const elapsedTime = (date: string) => {
   }
 }
 
-export const percentFormat = (percentage: number, precision: NumberPrecision = 'HUNDREDTHS') =>
-  `${formatNumber(percentage, precision)}%`
+export const percentFormat = (
+  percentage: number,
+  precision: NumberPrecision = NUMBER_PRECISION.HUNDREDTHS
+) => `${formatNumber(percentage, precision)}%`
 
 export const formatDateOfBirth = (year: string, month: string, day: string) => {
   return [year, month ? `0${month}`.slice(-2) : month, day ? `0${day}`.slice(-2) : day]
