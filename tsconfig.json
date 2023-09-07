@@ -1,6 +1,7 @@
 {
   "include": ["./src", "./tests"],
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "strict": true,
     "target": "ESNext",
     "module": "ESNext",
