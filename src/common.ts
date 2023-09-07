@@ -30,3 +30,8 @@ export const parseIntOr = (str: string, defaultValue: number) => {
 }
 
 export const spacer = (...strings: string[]) => strings.join(' ')
+
+export const entries = <T extends object, K extends keyof T>(obj: T) =>
+  Object.entries(obj) as [K, T[K]][]
+
+export const lengthOf = <T extends object>(obj: T): number => Object.keys(obj).length

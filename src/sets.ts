@@ -90,3 +90,19 @@ export const toggleSetItem = <I>(set: Set<I>, subject: I): Set<I> => {
 
   return newSet
 }
+
+export const diffSets = <I>(previous: Set<I>, current: Set<I>) => {
+  const removed = new Set<I>()
+  previous.forEach((item) => {
+    if (!current.has(item)) {
+      removed.add(item)
+    }
+  })
+  const added = new Set<I>()
+  current.forEach((item) => {
+    if (!previous.has(item)) {
+      added.add(item)
+    }
+  })
+  return { removed, added }
+}
