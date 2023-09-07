@@ -1,6 +1,6 @@
 {
   "name": "@sayari/toolkit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a collection of utility functions for Sayari Graph",
   "source": "src/index.ts",
   "main": "dist/index.js",
