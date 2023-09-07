@@ -1,4 +1,4 @@
-import { any, dropLast, endsWith, join, nth } from 'ramda'
+import { any, dropLast, endsWith, nth } from 'ramda'
 
 export type StringCase = 'camel' | 'pascal' | 'snake' | 'kebab' | 'sentence'
 export type NumberPrecision = 'ORDER_OF_MAGNITUDE' | 'INTEGER' | 'TENTHS' | 'HUNDREDTHS'
@@ -10,28 +10,28 @@ export const NUMBER_PRECISION: Record<NumberPrecision, NumberPrecision> = {
   HUNDREDTHS: 'HUNDREDTHS',
 }
 
-export const spacer = join(' ')
+export const spacer = (...strings: string[]) => strings.join(' ')
 
 export const capitalize = (str: string) => str.replace(/^./, (first) => first.toUpperCase())
 
 export const toSnakeCase = (string: string) => string.toLowerCase().replace(/[\s|\/]/g, '_')
 
-export const prettifySnakeCase = (string: string) => spacer(string.split('_').map(capitalize))
+export const prettifySnakeCase = (string: string) => spacer(...string.split('_').map(capitalize))
 
-export const prettifyKebobCase = (string: string) => spacer(string.split('-').map(capitalize))
+export const prettifyKebobCase = (string: string) => spacer(...string.split('-').map(capitalize))
 
 export const toTitleCase = (string: string, type: StringCase): string => {
   switch (type) {
     case 'snake':
-      return spacer(string.split('_').map(capitalize))
+      return spacer(...string.split('_').map(capitalize))
     case 'kebab':
-      return spacer(string.split('-').map(capitalize))
+      return spacer(...string.split('-').map(capitalize))
     case 'pascal':
       return string.replace(/([A-Z])/g, ' $1').trim()
     case 'camel':
       return capitalize(string.replace(/([A-Z])/g, ' $1'))
     case 'sentence':
-      return spacer(string.toLowerCase().split(' ').map(capitalize))
+      return spacer(...string.toLowerCase().split(' ').map(capitalize))
   }
 }
 
@@ -59,15 +59,11 @@ export const toVerboseDate = (string: string) => {
         date.toLocaleString('default', {
           month: 'long',
           year: 'numeric',
-        })
+        }),
       )
     case 3:
       return String(
-        date.toLocaleString('default', {
-          month: 'long',
-          year: 'numeric',
-          day: 'numeric',
-        })
+        date.toLocaleString('default', { month: 'long', year: 'numeric', day: 'numeric' }),
       )
     default:
       return string
@@ -174,7 +170,7 @@ export const elapsedTime = (date: string) => {
 
 export const percentFormat = (
   percentage: number,
-  precision: NumberPrecision = NUMBER_PRECISION.HUNDREDTHS
+  precision: NumberPrecision = NUMBER_PRECISION.HUNDREDTHS,
 ) => `${formatNumber(percentage, precision)}%`
 
 export const formatDateOfBirth = (year: string, month: string, day: string) => {

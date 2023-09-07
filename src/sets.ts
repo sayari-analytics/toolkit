@@ -19,7 +19,7 @@ export const filterSet = <I>(callback: (item: I) => boolean, set: Set<I>): Set<I
 export const reduceSet = <I, T>(
   callback: (accumulator: T, item: I) => T,
   set: Set<I>,
-  initial: T
+  initial: T,
 ): T => {
   let accu = initial
   set.forEach((item) => {
